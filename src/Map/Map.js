@@ -7,11 +7,13 @@ class Map extends React.Component {
   
   constructor(props) {
     super(props);
+
     var map;
     var loader;
     var geocoder;
     var intervalId;
     var ofset = 0;
+
     this.state = {
       map:map, 
       loader:loader, 
@@ -45,47 +47,59 @@ class Map extends React.Component {
             this.setState({
               geocoder: new window.google.maps.Geocoder()
             }, ()=> {
-              this.setState({intervalId: setInterval(this.addStores(), 200)});}
-            );
+              this.addStores();
+            });
           }
           );
         });
       }
     );
   }
+  
+  addMarker(address, name, i) {
+    this.state.geocoder.geocode( 
+      {'address': address}, 
+      (results, status) => {
+        if(status === "OK") {
+          if (results != null){
+
+            this.props.callBackStoreLocation(i, results[0].geometry.location);
+
+            var marker = new window.google.maps.Marker({
+              map: this.state.map,
+              position: results[0].geometry.location,
+              title: name
+            });
+            
+            marker.addListener( "click", () =>{
+              this.props.callBackStore(marker.title);
+            });
+          }
+        } else {
+          console.log(`Location ${name} Error` );
+        }
+    });
+  }
 
   addStores() {
-    var icounter = 0;
-    let storeNum;
-    for (icounter = 0; icounter < 9; icounter ++){
-      storeNum = icounter + this.state.ofset;
-      if(storeNum < this.props.stores.length){
-
-        this.state.geocoder.geocode( 
-          {'address': this.props.stores[storeNum].Address}, 
-          (results, status) => {
-            if(status === "OK") {
-              if (results != null){
-                var marker = new window.google.maps.Marker({
-                  map: this.state.map,
-                  position: results[0].geometry.location,
-                  title: this.props.stores[storeNum].Name
-                });
-                
-                marker.addListener( "click", () =>{
-                  this.props.callBackStore(marker.title);
-                });
-              }
-            } else {
-              console.log(`Location ${this.props.stores[storeNum].Name} Error` )
-            }
-        });
+    let timeOut = 0;
+    this.props.stores.forEach((store, i) => {
+      if (store.Location == null){
+        timeOut += 2000 ;
+        setTimeout( () => this.addMarker(store.Address, store.Name, i), timeOut );
       } else {
-        icounter = 10;
-        clearInterval(this.state.intervalId);
+        
+        var marker = new window.google.maps.Marker({
+          map: this.state.map,
+          position: store.Location,
+          title: store.Name
+        });
+        
+        marker.addListener( "click", () =>{
+          this.props.callBackStore(marker.title);
+        });
       }
-    }
-    this.setState({ofset: this.state.ofset + 10})
+    })
   }
 
   render(){

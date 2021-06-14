@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Map from './Map/Map'
 import MyStoresList from './List/MyStoresList'
 
-import store_directory from "./store_directory.json";
+import store_directory from "./backup.json";
 
 /*
 * Use this component as a launching-pad to build your functionality.
@@ -17,6 +17,7 @@ class YourComponent extends Component {
     this.state = {stores: stores, myFavoriteStores: myFavoriteStores};
     this.addFavoriteCallback = this.addFavoriteCallback.bind(this);
     this.removeFavoriteCallback = this.removeFavoriteCallback.bind(this);
+    this.locationCallback = this.locationCallback.bind(this);
   }
 
   addFavoriteCallback(name){
@@ -35,10 +36,14 @@ class YourComponent extends Component {
     });
   }
 
+  locationCallback(position, location){
+    this.state.stores[position].Location = location;
+  }
+
   render() {
     return (
-      <div style={divStyle}>
-       <Map callBackStore = {this.addFavoriteCallback} stores = {this.state.stores}/>
+      <div style={divStyle} id="json">
+       <Map callBackStore = {this.addFavoriteCallback} stores = {this.state.stores} callBackStoreLocation={this.locationCallback}/>
        <MyStoresList myStores = {this.state.myFavoriteStores} callBackStoreRm = {this.removeFavoriteCallback}/>
       </div>
     );
