@@ -22,7 +22,7 @@ class MyStoresList extends React.Component {
         }
         return (
             <div style = {{width: width + 'vh'}} className = "list">
-                <div id = "listTitle">{this.props.listTitle}</div>
+                <div className = "listTitle">{this.props.listTitle}</div>
                 <div id = "listContent">
                     <ul type = "none">
                     {this.props.myStores.map( element => 

@@ -29,17 +29,19 @@
   color: #f1f1f1;
 }
 
-#listTitle{
-  height: 100%;
-  width: 100%;
-  padding-top: 4vh;
-  background-color: gray;
-  color: white;
-  font-size: 30px;
-  text-align: center;
-  position: fixed;
+.list .listTitle{
+height: 100%;
+width: 100%;
+padding-top: 4vh;
+background-color: gray;
+color: white;
+font-size: 30px;
+text-align: center;
+grid-row: 1;
+overflow-y: hidden;
 }
 
 #listContent{
+  overflow-y: hidden;
   overflow-x: scroll;
 }
