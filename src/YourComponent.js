@@ -18,28 +18,44 @@ class YourComponent extends Component {
     super();
     var stores = store_directory;
     var myFavoriteStores = [];
-    var title = "Mexico City Stores"
-    var showStoreList = false
-    this.state = {stores: stores, myFavoriteStores: myFavoriteStores, title:title, showStoreList:showStoreList};
+    var title = "Mexico City Stores";
+    var showStoreList = false;
+    var listTitle = "My Favorite Stores";
+    this.state = {
+      stores: stores, 
+      myFavoriteStores: myFavoriteStores, 
+      title:title, 
+      showStoreList:showStoreList,
+      listTitle:listTitle
+    };
     this.addFavoriteCallback = this.addFavoriteCallback.bind(this);
     this.removeFavoriteCallback = this.removeFavoriteCallback.bind(this);
     this.handleButton = this.handleButton.bind(this);
   }
 
   addFavoriteCallback(name){
+    if(window.confirm("Add to favorites?")){
+      
     if (!this.state.myFavoriteStores.some((mystore) =>{
       return mystore.Name === name; })) {
         let myStores = [...this.state.myFavoriteStores, {Name:name}];
         this.setState({ myFavoriteStores : myStores });
-    };
+        alert(`${name} added to favorites`)
+    }
+    }
   }
 
   removeFavoriteCallback(name){
-    this.setState({myFavoriteStores: 
-      this.state.myFavoriteStores.filter( store => {
-        return store.Name !== name;
-      })
-    });
+    if (window.confirm("Remove from favorites?")){
+      
+      this.setState({myFavoriteStores: 
+        this.state.myFavoriteStores.filter( store => {
+          return store.Name !== name;
+        })
+      });
+      
+      alert(`${name} removed from favorites`)
+    } 
   }
 
   handleButton(){
@@ -55,7 +71,10 @@ class YourComponent extends Component {
         </div>
         <div id = "content">
           <Map callBackStore = {this.addFavoriteCallback} stores = {this.state.stores} />
-          <MyStoresList showStoreList = {this.state.showStoreList} myStores = {this.state.myFavoriteStores} callBackStoreRm = {this.removeFavoriteCallback}/>
+          <MyStoresList showStoreList = {this.state.showStoreList} 
+                        myStores = {this.state.myFavoriteStores} 
+                        callBackStoreRm = {this.removeFavoriteCallback}
+                        listTitle = {this.state.listTitle}/>
         </div>
       </div>
     );

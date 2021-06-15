@@ -5,12 +5,14 @@
   top: 0;
   left: 0;
   background-color: #111;
-  overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 0hv;
+  display: grid;
+  grid-template-rows: 4rem auto;
 }
 
 .list ul{
+  box-sizing: border-box;
   padding: 2vh 2vw;
 }
 
@@ -25,4 +27,19 @@
 
 .list li:hover{
   color: #f1f1f1;
+}
+
+#listTitle{
+  height: 100%;
+  width: 100%;
+  padding-top: 4vh;
+  background-color: gray;
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  position: fixed;
+}
+
+#listContent{
+  overflow-x: scroll;
 }

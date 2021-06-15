@@ -21,12 +21,15 @@ class MyStoresList extends React.Component {
             } else width = 40;
         }
         return (
-            <div style = {{width: width + 'vh'}} className = {"list"}>
-                <ul type = "none">
-                  {this.props.myStores.map( element => 
-                    <li key = {element.Name} id = {element.Name} onClick={this.handleClick}>{element.Name}</li>
-                  )}
-                </ul>
+            <div style = {{width: width + 'vh'}} className = "list">
+                <div id = "listTitle">{this.props.listTitle}</div>
+                <div id = "listContent">
+                    <ul type = "none">
+                    {this.props.myStores.map( element => 
+                        <li key = {element.Name} id = {element.Name} onClick={this.handleClick}>{element.Name}</li>
+                    )}
+                    </ul>
+                </div>
             </div>
          );
     }
