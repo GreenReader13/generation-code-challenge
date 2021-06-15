@@ -41,7 +41,7 @@ class Map extends React.Component {
           this.setState({
             map:new window.google.maps.Map(document.getElementById("map"), {
               center: {lat: 19.435, lng: -99.138},
-              zoom: 11,
+              zoom: 9,
             })
           }, () => {
             this.setState({
@@ -62,8 +62,6 @@ class Map extends React.Component {
       (results, status) => {
         if(status === "OK") {
           if (results != null){
-
-            this.props.callBackStoreLocation(i, results[0].geometry.location);
 
             var marker = new window.google.maps.Marker({
               map: this.state.map,

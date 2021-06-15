@@ -1,5 +1,6 @@
 .App {
   height: 100%;
+  width: 98%;
   box-sizing: border-box;
-  padding: 3%;
+  padding: 2% 2% 2% 4%;
 }

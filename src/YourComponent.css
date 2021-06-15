@@ -1,0 +1,5 @@
+#component{
+    display: grid;
+    grid-template-rows: 3rem auto;
+    box-sizing: border-box;
+}
