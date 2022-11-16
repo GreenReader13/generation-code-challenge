@@ -31,8 +31,7 @@ class Map extends React.Component {
     this.setState({
       loader: new Loader(
         {
-            apiKey : "AIzaSyB0ECX_Q9HuYewLeibqzpR_YKc7TE14uoM",
-            //apiKey : "AIzaSyCVH8e45o3d-5qmykzdhGKd1-3xYua5D2A",
+            apiKey : process.env.REACT_APP_GOOGLE_API_KEY,
             version: "weekly",
         }
       )
